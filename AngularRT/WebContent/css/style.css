@@ -1,0 +1,90 @@
+
+.ng-invalid.ng-dirty
+{
+    border-color:red
+}
+
+.ng-valid.ng-dirty
+{
+    border-color:green
+}
+
+.datepickerdemoBasicUsage {
+  /** Demo styles for mdCalendar. */ }
+  .datepickerdemoBasicUsage md-content {
+    padding-bottom: 200px; }
+  .datepickerdemoBasicUsage .validation-messages {
+    font-size: 11px;
+    color: darkred;
+    margin: 10px 0 0 25px; }
+    
+    table {
+  	width: 88%;
+  	
+}
+
+ td {
+   width: 10%;
+   padding: 1%;
+   text-align: left;
+   
+}
+
+input{
+	
+}
+
+select{
+	height: 80%;
+}
+
+.tablaOper {
+	align: center;
+	font-size: 11px;
+}
+.left {
+    float: left;
+    width: 75%;
+}
+
+.right {
+    float: right;
+    width: 25%;
+}
+
+.left50 {
+    float: left;
+    width: 50%;
+}
+
+.right50 {
+    float: right;
+    width: 50%;
+}
+
+.bodylogin {           
+       background-color: #F7F7F7;
+       background-opacity:0.1;          
+       padding-top: 10%;
+}
+
+.form-image {       
+      margin-left: 20%;           
+}
+
+.form-container {
+      color: black;
+	  width: 150px;           
+      margin-left: 10%;
+      /*background-color: #ffffff;*/
+      background-color: #F7F7F7;
+      opacity: 0.9;
+           
+}
+
+.credits {
+    border-top: 1px solid #ddd;
+    margin-top: 40px;
+    padding-top: 20px;
+}
+

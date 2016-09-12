@@ -1,0 +1,31 @@
+
+body .ui-widget-dialogo { font-size: 62.5%; }
+.ui-widget-dialogo label, .ui-widget-dialogo input { display:block; }
+.ui-widget-dialogo input.text { margin-bottom:12px; width:95%; padding: .4em; }
+.ui-widget-dialogo fieldset { padding:0; border:0; margin-top:25px; }
+.ui-widget-dialogo h1 { font-size: 1.2em; margin: .6em 0; }
+div#users-contain { width: 350px; margin: 20px 0; }
+div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
+div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+.ui-dialog .ui-state-error  { padding: .3em; }
+.validateTips { border: 1px solid transparent; padding: 0.3em; }
+
+.estado_casoPrueba_parado {
+	background-color: #D0D0D0;
+	color: black;
+}
+
+.estado_casoPrueba_ejecutando {
+	background-color: #FDFF39;
+	color: black;
+}
+
+.estado_casoPrueba_ok {
+	background-color: #7CFF89;
+	color: black;
+}
+
+.estado_casoPrueba_error {
+	background-color: #FFBABA;
+	color: black;
+}

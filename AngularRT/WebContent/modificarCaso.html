@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+
+	<title>Modificar Caso de Prueba</title>
+	<script src="https://code.angularjs.org/1.5.5/angular.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<link rel="stylesheet" href="estilos/layout.css"/>  
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</head>
+<body ng-app="AngularRT" class="pagina">
+	<div ng-controller="filtroController">
+						                    
+
+<form name ="filtroOperaciones" >
+<h1>Filtrado de peticiones</h1>	
+  <table>
+    <tr>
+      <td width="700"><label for="idPeticion">IdOperacion</label></td>
+      <td width="300"><input name="idPeticion" type="text" id="idPeticion" size="15" ng-model='idOperacion'/></td>
+      <td width="700"><label for="input2">EstadoPeticion</label></td>
+      <td width="300"><input name="estadoPeticion" type="text" id="estadoPeticion" size="15" ng-model='estadoPeticion'/></td>
+      <td width="700"><label for="input3">Fecha peticion desde</label></td>
+      <td width="300"><input name="fechaPeticionDesde" type="text" datetime="dd/MM/yyyy"  id="fechaPeticionDesde" size="15" ng-model='fechaPeticionDesde'/></td>
+    </tr>
+    <tr>    
+      <td><label for="input3">IdTransaccion</label></td>
+      <td><input name="idTransaccion" type="text" id="idTransaccion" size="15" ng-model='idTransaccion'/></td>
+      <td><label for="input3">Origen</label></td>
+      <td>
+      	<select name="origen" ng-model='origen'>
+      	<option  ng-repeat="origen in origenes">{{origen}}</option>
+      	</select>
+      </td>
+      <td><label for="input3">Fecha peticion hasta</label></td>
+      <td><input name="fechaPeticionHasta" type="text" datetime="dd/MM/yyyy" id="fechaPeticionHasta" size="15" ng-model='fechaPeticionHasta'/></td>
+    </tr>
+    <tr>
+      <td><label for="input3">Instrumento</label></td>
+      <td>
+      	<select name="instrumento"  ng-model='instrumento'>
+      	<option ng-repeat="op in opcion">{{op}}</option>
+      	</select>
+      </td>
+      
+      <td><label for="input3">Destino</label></td>
+      <td>
+      	<select name="destino" ng-model='destino' ng-init="destinos[0]" >
+      	<option ng-repeat="destino in destinos">{{destino}}</option>      		
+        </select>
+      </td>
+      <td><label for="input3">Accion</label></td>
+      <td><input name="accion" type="text" id="accion" size="15" ng-model='accion'/></td>
+    </tr>
+    <tr>
+      <td><label for="input4">Entorno</label></td>
+      <td>
+      <select ng-model='entorno'>
+      	<option value="LOCAL">Local</option>
+      	<option value="PRE">Pre</option> 
+      	<option value="DES">Des</option>
+      	<option value="PRO">Pro</option>
+      	<option value="GOS">Gos</option>
+      </select>
+      
+      </td>   
+    </tr>
+    <tr>
+      <td>
+       <button id="collapsePrueba" type="submit" class="btn btn-info" data-toggle="collapse" data-target="#demo"  ng-click="filtrarOperaciones()">Filtrar</button>      	  	
+	  </td>
+     </tr>
+  </table>
+  </form>
+  
+    <div id="demo" class="separacionFiltros collapse">
+		  <h1>Lista de peticiones</h1>						
+                <table class="tabla">
+					<tr>
+						<td NOWRAP >ID Peticion</td>
+						<td NOWRAP >Instrumento</td>
+						<td NOWRAP >Accion</td>
+						<td NOWRAP >Origen</td>
+						<td NOWRAP >Destino</td>
+						<td NOWRAP ></td>
+										
+					</tr>
+					 <tr ng-repeat="ope in responseOperaciones"> 
+						<td NOWRAP >{{ope.idOperacion}}</td>
+						<td NOWRAP >{{ope.instrumento}}</td>
+						<td NOWRAP >{{ope.accion}}</td>
+						<td NOWRAP >{{ope.origen}}</td>
+						<td NOWRAP >{{ope.destino}}</td>
+						<td NOWRAP ><button ng-click="añadirOpe">Añadir</button></td>					     	  	
+                    </tr>                  
+                </table>              
+         </div>
+    	
+</div>	
+
+
+	
+</body>
+</html>

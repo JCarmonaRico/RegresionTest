@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+<head> 
+
+
+    <title>Pantalla AltaNueva</title>
+	<script src="https://code.angularjs.org/1.5.5/angular.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<link rel="stylesheet" href="estilos/layout.css"/>  
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href= "css/style.css"/>
+   	
+   	<link rel="stylesheet" type="text/css" href="css/redmond/jquery-ui-1.10.4.custom.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="css/redmond/dialogos.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="frameWorks/jtree/js/jstree/themes/default/style.min.css" />
+	
+	
+	
+</head>
+<body ng-app="AngularRT" class="pagina fondoFiltros">
+<div ng-controller="filtroController" >
+
+                                          <!-- MENU DE PESTAÑAS DESPLEGABLES -->
+<div >
+	<ul class="menu">
+	    <li><a href="#">CONFIGURACION</a>					
+	        <ul>
+	            <li id="pestana1" class="documents" ng-class="{active:showMenuOption==1}"><a ng-click="showMenuOption=1">ALTA</a></li>         
+	            <li id="pestana2" class="messages" ng-class="{active:showMenuOption==2}"><a ng-click="showMenuOption=2">CONSULTA</a></li>           
+	        </ul>
+	 
+	    </li>
+	    <li id="pestana3" ng-class="{active:showMenuOption==3}"><a ng-click="showMenuOption=3">EJECUCION</a></li>
+	    <li id="pestana4" ng-class="{active:showMenuOption==4}"><a ng-click="showMenuOption=4">RESULTADO</a></li>
+	</ul>
+	<img class="logo2" src="image/logo2.png">
+	<input type="image" src="image/logout.png" class="botonLogOut" ng-click='logOut()'/>
+</div>
+
+										
+										<!-- MENU DE FILTRADO Y ALTA DE CASO DE PRUEBA -->
+										
+									
+<div id="alta" ng-show="showMenuOption==1">
+<form name ="filtroOperaciones" >
+<div class="pantIni " >	
+<h1 style="background-color: #e9e9ec; color:#6f6f82; margin-top: 0px" class="titulo ng-pristine ng-untouched ng-valid"><a style="background-color: #e9e9ec; color:#6f6f82; margin-top: 0px" class="titulo btn button1" data-toggle="collapse" href="#filtrosAlta" aria-expanded="true" aria-controls="filtrosAltra" ng-click="abrirCerrarFiltrosAlta()">{{botonAbrirCerrarFiltrosAlta}}</a>Filtros</h1>	
+<div class="filtrosAlta collapse in" id="filtrosAlta">
+  <table >
+    <tr>
+      <td ><label for="idPeticion">IdOperacion:</label></td>
+      <td ><input name="idPeticion" type="text" id="idPeticion" size="15" ng-model='idOperacion'/></td>
+      <td ><label for="input2">EstadoPeticion:</label></td>
+      <td ><input name="estadoPeticion" type="text" id="estadoPeticion" size="15" ng-model='estadoPeticion'/></td>
+      <td ><label for="input3">Fecha peticion desde:</label></td>
+      <td ><input name="fechaPeticionDesde" type="text" datetime="dd/MM/yyyy"  id="fechaPeticionDesde" size="15" ng-model='fechaPeticionDesde'/></td>
+    </tr>
+    <tr>    
+      <td><label for="input3">IdTransaccion:</label></td>
+      <td><input name="idTransaccion" type="text" id="idTransaccion" size="15" ng-model='idTransaccion'/></td>
+      <td><label for="input3">Origen:</label></td>
+      <td>
+      	<select name="origen" ng-model='origen'>
+      	<option  ng-repeat="origen in origenes">{{origen}}</option>
+      	</select>
+      </td>
+      <td><label for="input3">Fecha peticion hasta:</label></td>
+      <td><input name="fechaPeticionHasta" type="text" datetime="dd/MM/yyyy" id="fechaPeticionHasta" size="15" ng-model='fechaPeticionHasta'/></td>
+    </tr>
+    <tr>
+      <td><label for="input3">Instrumento:</label></td>
+      <td>
+      	<select name="instrumento"  ng-model='instrumento'>
+      	<option ng-repeat="op in opcion">{{op}}</option>
+      	</select>
+      </td>
+      
+      <td><label for="input3">Destino:</label></td>
+      <td>
+      	<select name="destino" ng-model='destino' ng-init="destinos[0]" >
+      	<option ng-repeat="destino in destinos">{{destino}}</option>      		
+        </select>
+      </td>
+      <td><label for="input3">Accion:</label></td>
+      <td><input name="accion" type="text" id="accion" size="15" ng-model='accion'/></td>
+    </tr>
+    <tr>
+      <td><label for="input4">Entorno:</label></td>
+      <td>
+      <select ng-model='entorno'>
+      	<option ng-repeat="entorno in entornos">{{entorno}}</option> 
+      </select>
+      
+      </td>   
+    </tr>
+    <tr>
+      <td>
+       <input type="image" src="image\buscar.png" class="botonBuscar" id="collapsePrueba" data-toggle="collapse" data-target=".filtrosAlta"  ng-click="filtrarOperaciones()"></input>      	  	
+	  </td>
+     </tr>
+  </table>
+  </div>
+  
+
+								<!-- MENU DE OPERACIONES FILTRADAS -->
+								
+		  <h1 style="background-color: #e9e9ec; color:#6f6f82; margin-bottom: 0px" class="titulo ng-pristine ng-untouched ng-valid"><a style="background-color: #e9e9ec; color:#6f6f82; margin-bottom: 0px" class="titulo btn button1" data-toggle="collapse" href="#listaPeticionesAlta" aria-expanded="true" aria-controls="filtrosAlta" ng-click="abrirCerrarListaPeticionesAlta()">{{botonAbrirCerrarListaPeticionesAlta}}</a>Lista de Peticiones</h1>
+		  <div id="listaPeticionesAlta" class="filtrosAlta separacionFiltros collapse">					
+                <table class="tabla">
+					<tr>
+						<td NOWRAP style="width:0.1%"></td>
+						<td NOWRAP >ID Peticion</td>
+						<td NOWRAP >Instrumento</td>
+						<td NOWRAP >Accion</td>
+						<td NOWRAP >Origen</td>
+						<td NOWRAP >ID Peticion Original</td>
+						<!-- <td NOWRAP >Destino</td> -->
+										
+					</tr>
+					 <tr ng-repeat="ope in responseOperaciones"> 
+						<td NOWRAP style="width:0.1%"><input type="checkbox" ng-model="seleccionados[$index]" ng-change="mostrar(ope,$index)"/></td>	
+						<td NOWRAP >{{ope.requestIdSinTimeStamp}}</td>
+						<td NOWRAP >{{ope.instrumento}}</td>
+						<td NOWRAP >{{ope.accion}}</td>
+						<td NOWRAP >{{ope.origen}}</td>
+						<td NOWRAP >{{ope.requestId}}</td>
+						<!-- <td NOWRAP >{{ope.destino}}</td> -->
+                    </tr>                  
+                </table>              
+         </div>       
+</div>	
+</form>	
+
+	<div class="pantIniCaso">
+      <h1 style="background-color: #e9e9ec; color:#6f6f82; margin-bottom: 0px" class="titulo ng-pristine ng-untouched ng-valid"><a style="background-color: #e9e9ec; color:#6f6f82; margin-bottom:  0px" class="titulo btn button1" data-toggle="collapse" href="#listaCasoPruebaAlta" aria-expanded="true" aria-controls="listaCasoPruebaAlta" ng-click="abrirCerrarCasosPruebaAlta()">{{botonAbrirCerrarCasosPruebaAlta}}</a>Casos de Prueba</h1>	 
+      <div id="listaCasoPruebaAlta">						
+                <table class="tabla">
+					<tr>
+						<td NOWRAP >ID Peticion</td>
+						<td NOWRAP >Instrumento</td>
+						<td NOWRAP >Accion</td>
+						<td NOWRAP >Origen</td>
+						<td NOWRAP >Destino</td>
+						<td NOWRAP style="width:0.1%" >Acciones</td>			
+											
+					</tr>
+					 <tr ng-repeat="ope in opCasosPrueba ">			 	
+						<td NOWRAP >{{ope.requestId}}</td>
+						<td NOWRAP >{{ope.instrumento}}</td>
+						<td NOWRAP >{{ope.accion}}</td>
+						<td NOWRAP >{{ope.origen}}</td>
+						<td NOWRAP >{{ope.destino}}</td>
+						<td NOWRAP style="width:0.1%"><button class="btn btn-danger btn-xs" ng-model="seleccionados[$index]" ng-click="eliminar(ope,$index)">Eliminar</button></td>					  
+                    </tr>                  
+                </table>              
+                                       
+          </div>   
+          <br>
+          <br>
+          <label>Nombre del caso</label> 
+          <input name="nombreCaso" type="text" id="nombreCaso" size="15" ng-model='nombreCaso'/>  
+          <label>Descripcion</label> 
+          <input name="descripcion" type="text" id="descripcion" size="55" maxlenght="100" ng-model='descripcion'/>
+          <button class="btn btn-primary btn-xs" type="submit" ng-click="guardarCasoPrueba()">Guardar caso</button>    
+</div>	
+    </div>  
+    
+    					<!-- MENU DE CONSULTA DE CASO DE PRUEBA -->
+    
+     <div id="consulta" ng-show="showMenuOption==2" ng-controller="CasosController">
+     
+
+      	<h1 style="background-color: #e9e9ec; color:#6f6f82; margin-top: 0px" class="titulo ng-pristine ng-untouched ng-valid"><a style="background-color: #e9e9ec; color:#6f6f82; margin-top: 0px" class="titulo btn button1" data-toggle="collapse" href="#filtrosConsulta" aria-expanded="true" aria-controls="filtrosConsulta" ng-click="abrirCerrarFiltrosConsulta()">{{botonAbrirCerrarFiltrosConsulta}}</a>Consulta de Casos de Prueba</h1>	
+		<div class="filtrosConsulta collapse in" id="filtrosConsulta">
+		  <table>
+		    <tr>
+		      <td><label for="nomCaso">Nombre caso</label></td>
+		      <td><input name="nomCaso" type="text" id="nomCaso" size="15" ng-model='nomCaso'/></td>
+		      <td><label for="descrip">Descripcion</label></td>
+		      <td><input name="descrip" type="text" id="descrip" size="15" ng-model='descrip'/></td> 
+		     </tr>
+		    <tr>
+		      <td>
+		       <input type="image" src="image\buscar.png" class="botonBuscar" id="busqueda"  data-toggle="collapse" data-target=".filtrosConsulta" ng-click="buscarCasos()"></input>       	  	     	  	
+			  </td>
+		    </tr>
+		  </table>
+	  	</div> 
+		  
+ <h1 style="background-color: #e9e9ec; color:#6f6f82; margin-bottom: 0px" class="titulo ng-pristine ng-untouched ng-valid"><a style="background-color: #e9e9ec; color:#6f6f82; margin-bottom:  0px" class="titulo btn button1" data-toggle="collapse" href="#listaCasoPruebaConsulta" aria-expanded="true" aria-controls="listaCasoPruebaConsulta" ng-click="abrirCerrarCasosPruebaConsulta()">{{botonAbrirCerrarCasosPruebaConsulta}}</a>Casos de Prueba</h1>	 
+      <div class="filtrosConsulta collapse" id="listaCasoPruebaConsulta">						
+                <table class="tabla">
+					<tr>			
+						<td NOWRAP >Id</td>		
+						<td NOWRAP >Nombre</td>
+						<td NOWRAP >Descripcion</td>
+						<td NOWRAP style="width:0.1%">Acciones</td>
+					</tr>
+					 <tr ng-repeat="ope in responseCasos"> 
+					    <td NOWRAP >{{ope.idCasoPrueba}}</td>
+						<td NOWRAP >{{ope.nombreCasoPrueba}}</td>
+						<td NOWRAP >{{ope.descripcion}}</td>
+						<td NOWRAP style="width:0.1%">
+							<button id="busqueda" class="btn btn-primary btn-xs" type="submit" data-toggle="collapse" data-target="#desplegableOpes" ng-click="mostrarOperaciones(ope,$index)">Ver caso</button>
+							<button id="modificar" class="btn btn-primary btn-xs" type="submit" ng-click="modificarCasoPrueba(ope)">Modificar</button>
+							<button id="eliminar" class="btn btn-danger btn-xs" type="submit" ng-click="eliminarCasos(ope,$index)">Eliminar</button>
+						</td>      	  	     	  
+                    </tr>                  
+                </table>                                             
+          </div>   
+          
+          <h1 style="background-color: #e9e9ec; color:#6f6f82; margin-bottom: 0px" class="titulo ng-pristine ng-untouched ng-valid"><a style="background-color: #e9e9ec; color:#6f6f82; margin-bottom:  0px" class="titulo btn button1" data-toggle="collapse" href="#listaCasoPruebaConsultaOperaciones" aria-expanded="true" aria-controls="listaCasoPruebaConsultaOperaciones" ng-click="abrirCerrarCasosPruebaConsultaOperaciones()">{{botonAbrirCerrarCasosPruebaConsultaOperaciones}}</a>Operaciones del caso "{{nombreCasoOperacionesMostradas}}"</h1>	 
+      		<div id="listaCasoPruebaConsultaOperaciones">
+	                <table class="tabla">
+						<tr>			
+							<td NOWRAP >Id</td>		
+							<td NOWRAP >RequestId</td>
+							<td NOWRAP >Instrumento</td>
+							<td NOWRAP >Origen</td>
+						</tr>
+						 <tr ng-repeat="ope in responsePeticiones"> 
+						    <td NOWRAP >{{ope.id}}</td>
+							<td NOWRAP >{{ope.requestId}}</td>
+							<td NOWRAP >{{ope.instrumento}}</td>  
+							<td NOWRAP >{{ope.origen}}</td>					       	  	     	  
+	                    </tr>                  
+	                </table>                                             
+	          </div> 
+    </div>
+
+
+    
+ 						<!-- MENU DE EJECUCION CASO DE PRUEBA -->
+    
+     <div id="ejecucion" ng-show="showMenuOption==3">
+		<h1 style="background-color: #e9e9ec; color:#6f6f82; margin-top: 0px" class="titulo ng-pristine ng-untouched ng-valid"><a style="background-color: #e9e9ec; color:#6f6f82; margin-top: 0px" class="titulo btn button1" data-toggle="collapse" href="#filtrosEjecucion" aria-expanded="true" aria-controls="filtrosEjecucion" ng-click="abrirCerrarFiltrosEjecucion()">{{botonAbrirCerrarFiltrosEjecucion}}</a>Consulta y Ejecucion de Casos de Prueba</h1>	
+		<div class="filtrosEjecucion collapse in" id="filtrosEjecucion">
+		  <table>
+		    <tr width="500">
+		      <td width="50"><label for="nombreOperacion">Nombre</label></td>
+		      <td width="300"><input name="nombreOperacion" type="text" id="nombreOperacion" size="15" ng-model='nombre'/></td>
+		      <td width="50"><label for="descripcion">Descripcion</label></td>
+		      <td width="300"><input name="descripcion" type="text" id="descripcion" size="15" ng-model='descripcion'/></td>
+		    </tr>
+		    
+		    <tr>
+		      <td>
+		           <input type="image" src="image\buscar.png" class="botonBuscar" type="button" ng-click='buscarPruebas()' class="btn btn-info" data-toggle="collapse" data-target=".filtrosEjecucion" value="Buscar"></input>   
+			  </td>
+		     </tr>
+		  </table>
+	 	</div>
+		  
+		 <h1 style="background-color: #e9e9ec; color:#6f6f82; margin-bottom: 0px" class="titulo ng-pristine ng-untouched ng-valid"><a style="background-color: #e9e9ec; color:#6f6f82; margin-bottom:  0px" class="titulo btn button1" data-toggle="collapse" href="#listaCasoPruebaEjecucion" aria-expanded="true" aria-controls="listaCasoPruebaEjecucion" ng-click="abrirCerrarCasosPruebaEjecucion()">{{botonAbrirCerrarCasosPruebaEjecucion}}</a>Casos de Prueba</h1>	 
+		      <div class="filtrosEjecucion" id="listaCasoPruebaEjecucion">						
+                <table  class="tabla">
+					<tr>
+						<td NOWRAP >Nombre</td>
+						<td NOWRAP >Descripcion</td>
+						<td NOWRAP style="width:0.1%">Enviar a destino final</td>
+						<td NOWRAP style="width:0.1%">Acciones</td>					
+					</tr>
+					 <tr ng-repeat="ope in responseCasosPrueba ">	 	
+						<td NOWRAP >{{ope.nombreCasoPrueba}}</td>
+						<td NOWRAP >{{ope.descripcion}}</td>
+						<td NOWRAP style="width:0.1%;text-align: center;"><input type="checkbox" ng-model="enviarADestinoFinal[$index]"/></td>
+						<td NOWRAP style="width:0.1%"><input class="btn btn-primary btn-xs" type="button" ng-click='ejecutarPrueba(ope.idCasoPrueba,enviarADestinoFinal[$index])' value="EJECUTAR"></td>	
+                    </tr>                  
+                </table>              
+       		</div>       
+	  </div>
+	  
+	  						<!-- MENU DE EJECUCION CASO DE PRUEBA -->
+    
+     <div id="resultado" ng-show="showMenuOption==4" ng-init="cargarListadoResultadosGuardados()">
+			 <h1 style="background-color: #e9e9ec; color:#6f6f82; margin-top: 0px" class="titulo ng-pristine ng-untouched ng-valid"><a style="background-color: #e9e9ec; color:#6f6f82; margin-top:  0px" class="titulo btn button1" data-toggle="collapse" href="#listaResultadosGuardados" aria-expanded="true" aria-controls="listaResultadosGuardados" ng-click="abrirCerrarListaResultadosGuardados()">{{botonAbrirCerrarListaResultadosGuardados}}</a>Lista de Resultados Guardados</h1>	 
+		      <div class="resultadosGuardados" id="listaResultadosGuardados">
+				<div>
+					<select id="listadoResultados" ng-model="idResultadoSeleccionado" >
+						<option ng-repeat="resultadoGuardado in listaResultadosGuardados" value="{{resultadoGuardado.resultadoId}}" >{{resultadoGuardado.nombre}}</option>
+					</select>
+				</div>
+				<br/>
+				
+				<div class="form-group">
+					<INPUT  TYPE=SUBMIT class="btn btn-primary btn-xs" VALUE="Visualizar" data-toggle="collapse" data-target="#listaResultadosGuardados" ng-click="visualizarPrueba(idResultadoSeleccionado)"> 
+					<INPUT  TYPE=SUBMIT class="btn btn-danger btn-xs" VALUE="Eliminar" ng-click="eliminarResultado(idResultadoSeleccionado)">
+				</div>
+				<br>
+			</div>
+			
+			
+			
+			<div margin-top="400" ng-show="mostrarBarraPestanasResultados==1">
+				<h1 style="background-color: #e9e9ec; color:#6f6f82; margin-bottom: 0px" class="titulo ng-pristine ng-untouched ng-valid"><a style="background-color: #e9e9ec; color:#6f6f82; margin-bottom:  0px" class="titulo btn button1" data-toggle="collapse" href="#resultadoEjecucion" aria-expanded="true" aria-controls="resultadoEjecucion" ng-click="abrirCerrarResultadoEjecucion()">{{botonAbrirCerrarResultadoEjecucion}}</a>Resultado ejecucion</h1>	 
+		      <div id="resultadoEjecucion">
+		      	<br>
+		      	<form name="guardarResultadoform" ng-submit="guardarResultadoform.$valid && guardarResultado()">
+					<div>
+						<label for="nombre">Nombre Resultado: </><input type="text"  style="width:130px;" name="resultado" id="nombreresultado" ng-model='nombreResultado' required/>
+						<button class="btn btn-primary btn-xs" VALUE="Guardar">Guardar</button>
+				   </div>
+				</form>	
+					<div class="barraPestanas">
+						<nav  class="navbar navbar-default"  role="navigation">
+							<div  id="pestanas">
+									<ul id="pestanasResultados" class="nav nav-tabs" >
+									   <!--  <li><a id="pestana55"><a ng-click="showMenuPestana=1">PRUEBA</a></li> -->
+									</ul>
+							</div>
+						</nav>
+					</div>
+				<div>
+					<br/>
+					<br/>
+					<br/>
+					<div id="json">
+						<!-- 				<div id="jsonviews"></div> -->
+					</div>
+				</div>
+				<br>
+				<br>
+			</div>
+		  </div>
+	  </div>
+	  
+	  
+	  									<!-- MENU DE FILTRADO Y ALTA DE CASO DE PRUEBA -->
+										
+									
+<div id="modificacion" ng-show="showMenuOption==5">
+<form name ="filtroOperaciones" >
+<div class="pantIni " >	
+
+	<h1 style="background-color: #e9e9ec; color:#6f6f82; margin-top: 0px" class="titulo ng-pristine ng-untouched ng-valid"><a style="background-color: #e9e9ec; color:#6f6f82; margin-top: 0px" class="titulo btn button1" data-toggle="collapse" href="#filtrosModificar" aria-expanded="true" aria-controls="filtrosModificar" ng-click="abrirCerrarFiltrosModificar()">{{botonAbrirCerrarFiltrosModificar}}</a>Filtros</h1>	
+	<div class="filtrosModificar collapse in" id="filtrosModificar">	
+	  <table >
+	    <tr>
+	      <td ><label for="idPeticion">IdOperacion:</label></td>
+	      <td ><input name="idPeticion" type="text" id="idPeticionModificar" size="15" ng-model='idOperacionModificar'/></td>
+	      <td ><label for="input2">EstadoPeticion:</label></td>
+	      <td ><input name="estadoPeticion" type="text" id="estadoPeticionModificar" size="15" ng-model='estadoPeticionModificar'/></td>
+	      <td ><label for="input3">Fecha peticion desde:</label></td>
+	      <td ><input name="fechaPeticionDesde" type="text" datetime="dd/MM/yyyy"  id="fechaPeticionDesdeModificar" size="15" ng-model='fechaPeticionDesdeModificar'/></td>
+	    </tr>
+	    <tr>    
+	      <td><label for="input3">IdTransaccion:</label></td>
+	      <td><input name="idTransaccion" type="text" id="idTransaccionModificar" size="15" ng-model='idTransaccionModificar'/></td>
+	      <td><label for="input3">Origen:</label></td>
+	      <td>
+	      	<select name="origen" ng-model='origenModificar'>
+	      	<option  ng-repeat="origen in origenesModificar">{{origen}}</option>
+	      	</select>
+	      </td>
+	      <td><label for="input3">Fecha peticion hasta:</label></td>
+	      <td><input name="fechaPeticionHasta" type="text" datetime="dd/MM/yyyy" id="fechaPeticionHastaModificar" size="15" ng-model='fechaPeticionHastaModificar'/></td>
+	    </tr>
+	    <tr>
+	      <td><label for="input3">Instrumento:</label></td>
+	      <td>
+	      	<select name="instrumento"  ng-model='instrumentoModificar'>
+	      	<option ng-repeat="op in opcionModificar">{{op}}</option>
+	      	</select>
+	      </td>
+	      
+	      <td><label for="input3">Destino:</label></td>
+	      <td>
+	      	<select name="destino" ng-model='destinoModificar' ng-init="destinosModificar[0]" >
+	      	<option ng-repeat="destino in destinosModificar">{{destino}}</option>      		
+	        </select>
+	      </td>
+	      <td><label for="input3">Accion:</label></td>
+	      <td><input name="accion" type="text" id="accionModificar" size="15" ng-model='accionModificar'/></td>
+	    </tr>
+	    <tr>
+	      <td><label for="input4">Entorno:</label></td>
+	      <td>
+	      <select ng-model='entornoModificar'>
+	      	<option ng-repeat="entorno in entornosModificar">{{entorno}}</option> 
+	      </select>
+	      
+	      </td>   
+	    </tr>
+	    <tr>
+	      <td>
+	       <input type="image" src="image\buscar.png" class="botonBuscar" id="collapsePruebaModificacion" data-toggle="collapse" data-target=".filtrosModificar"  ng-click="filtrarOperacionesModificar()"></input>      	  	
+		  </td>
+	     </tr>
+	  </table>
+  	</div>
+  
+
+						<!-- MENU DE OPERACIONES FILTRADAS -->
+						
+	<h1 style="background-color: #e9e9ec; color:#6f6f82; margin-bottom: 0px" class="titulo ng-pristine ng-untouched ng-valid"><a style="background-color: #e9e9ec; color:#6f6f82; margin-bottom: 0px" class="titulo btn button1" data-toggle="collapse" href="#listaPeticionesModificar" aria-expanded="true" aria-controls="filtrosModificar" ng-click="abrirCerrarListaPeticionesModificar()">{{botonAbrirCerrarListaPeticionesModificar}}</a>Lista de Peticiones</h1>
+  	<div id="listaPeticionesModificar" class="filtrosModificar separacionFiltros collapse">							
+       <table class="tabla">
+		<tr>
+			<td NOWRAP style="width:0.1%"></td>
+			<td NOWRAP >ID Peticion</td>
+			<td NOWRAP >Instrumento</td>
+			<td NOWRAP >Accion</td>
+			<td NOWRAP >Origen</td>
+			<!-- <td NOWRAP >Destino</td> -->				
+		</tr>
+	 	<tr ng-repeat="ope in responseOperacionesModificar"> 
+			<td NOWRAP style="width:0.1%"><input type="checkbox" ng-model="seleccionadosModificar[$index]" ng-change="mostrarModificar(ope,$index)"/></td>	
+			<td NOWRAP >{{ope.requestId}}</td>
+			<td NOWRAP >{{ope.instrumento}}</td>
+			<td NOWRAP >{{ope.accion}}</td>
+			<td NOWRAP >{{ope.origen}}</td>
+			<!-- <td NOWRAP >{{ope.destino}}</td> -->
+           </tr>                  
+         </table>              
+    </div>       
+</div>	
+</form>	
+
+			<h1 style="background-color: #e9e9ec; color:#6f6f82; margin-bottom: 0px" class="titulo ng-pristine ng-untouched ng-valid"><a style="background-color: #e9e9ec; color:#6f6f82; margin-bottom:  0px" class="titulo btn button1" data-toggle="collapse" href="#listaCasoPruebaModificar" aria-expanded="true" aria-controls="listaCasoPruebaModificar" ng-click="abrirCerrarCasosPruebasModificar()">{{botonAbrirCerrarCasosPruebaModificar}}</a>Casos de Prueba</h1>	 
+	    	<div id="listaCasoPruebaModificar">	 					
+	             <table class="tabla">
+					<tr>
+						<td NOWRAP >ID Peticion</td>
+						<td NOWRAP >Instrumento</td>
+						<td NOWRAP >Accion</td>
+						<td NOWRAP >Origen</td>
+						<td NOWRAP >Destino</td>
+						<td NOWRAP style="width:0.1%" >Acciones</td>			
+											
+					</tr>
+					 <tr ng-repeat="ope in opCasosPruebaAModificar ">			 	
+						<td NOWRAP >{{ope.requestId}}</td>
+						<td NOWRAP >{{ope.instrumento}}</td>
+						<td NOWRAP >{{ope.accion}}</td>
+						<td NOWRAP >{{ope.origen}}</td>
+						<td NOWRAP >{{ope.destino}}</td>
+						<td NOWRAP style="width:0.1%"><button class="btn btn-danger btn-xs" ng-model="seleccionadosModificar[$index]" ng-click="eliminarModificar(ope,$index)">Eliminar</button></td>					  
+	                 </tr>                  
+	             </table>                                     
+	       	</div> 
+          <br>
+          <br>
+          <!--  <label>Nombre del caso</label>
+          <input name="nombreCaso" type="text" id="nombreCasoModificar" size="15" ng-model='nombreCasoModificar'/>  
+          <label>Descripcion</label> 
+          <input name="descripcion" type="text" id="descripcionModificar" size="15" ng-model='descripcionModificar'/>--> 
+          <button class="btn btn-primary btn-xs" type="submit" ng-click="actualizarCasoPrueba()">ACTUALIZAR</button>    
+	</div>	
+</div>
+</body>
+</html>

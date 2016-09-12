@@ -1,0 +1,56 @@
+
+<div class="left">
+	<div>
+		<h4>Resultado ejecucion</h4>
+	</div>
+		<form method="post">
+	
+			<div class="form-group">
+				<label for="nombreresultado">Nombre Resultado</label> <input
+					type="text" name="resultado" id="nombreresultado" ng-model ="regresion.nombreresult" required />
+				<INPUT TYPE=reset class="btn btn-primary btn-xs" VALUE="Guardar " ng-click = "regresion.guardaresultado()">
+			</div>
+		</form>
+</div>
+
+
+<div >
+	<div>
+		<h4>Listado resultados</h4>
+	</div>
+
+	<div>
+		<select id="listadoresultado" required
+			ng-model="regresion.selectresult" ng-change="regresion.cargaOperaciones()"><option
+				ng-repeat="o in regresion.listadoresultado">{{o.nombre}}</option></select>
+	</div>
+	
+	<h4> Operaciones</h4>
+	<div>
+		<select id="listadoresultado" required
+			ng-model="regresion.seleccionaOperacion"><option
+				ng-repeat="op in regresion.listadoOperacionesResultado">{{op.nombre}}</option></select>
+	</div>
+	<br/>
+	
+	<div class="form-group">
+		<INPUT  TYPE=SUBMIT class="btn btn-primary btn-xs" VALUE="Visualizar" ng-click="regresion.visualizaJson()"> 
+		<INPUT  TYPE=SUBMIT class="btn btn-danger btn-xs" VALUE="Eliminar" ng-click="regresion.eliminarResultado()">
+	</div>
+	<br>
+</div>
+
+<br/>
+<br/>
+<br/>
+<div margin-top="400">
+				<ul id="pestanasResultados" class="menu">
+				   <!--  <li><a id="pestana55"><a ng-click="showMenuPestana=1">PRUEBA</a></li> -->
+				</ul>
+
+				<div id="json">
+	<!-- 				<div id="jsonviews"></div> -->
+				</div>
+				VALOR PESATANA -----> {{showMenuPestana}}
+</div>
+
